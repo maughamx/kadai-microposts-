@@ -7,8 +7,17 @@ class User < ApplicationRecord
   has_secure_password
 
   has_many :microposts
+
   has_many :relationships
+  # def relationships
+  #   Relationship.where(user_id: self.id)
+  # end
+
   has_many :followings, through: :relationships, source: :follow
+  # def followings
+  #   User.where(id: self.relationships.pluck(:follow_id))
+  # end
+
   has_many :reverses_of_relationship, class_name: 'Relationship', foreign_key: 'follow_id'
   has_many :followers, through: :reverses_of_relationship, source: :user
 
@@ -31,5 +40,8 @@ class User < ApplicationRecord
     Micropost.where(user_id: self.following_ids + [self.id])
   end
   
+  def feed_microposts
+    Micropost.where(user_id: self.following_ids + [self.id])
+  end
   
 end
