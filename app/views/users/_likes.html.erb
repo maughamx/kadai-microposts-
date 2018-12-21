@@ -1,0 +1,13 @@
+<% if favorite_items.any? %>
+  <ul class="media-list">
+    <% favorite_items.each do |favorite_item| %>
+      <li class="media">
+        <div class="media-body">
+          <div>
+            <%= favorite_item.content %>
+          </div>
+        </div>
+      </li>
+    <% end %>
+  </ul>
+<% end %>
