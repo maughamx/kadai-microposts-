@@ -22,8 +22,8 @@ class User < ApplicationRecord
   has_many :followers, through: :reverses_of_relationship, source: :user
 
   #お気に入り機能
-  has_many :favorites
-  has_many :favorite_items, through: :favorites, source: :micropost
+  has_many :favorites, dependent: :destroy
+  has_many :favorite_items, through: :favorites, source: :micropost, dependent: :destroy
   
   
   def follow(other_user)
